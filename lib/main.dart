@@ -7,8 +7,8 @@ import 'package:firebase_core/firebase_core.dart';
 //import 'package:first_app/feedback.dart';
 //import 'package:first_app/appointment.dart';
 import 'package:first_app/firebase_options.dart';
-import 'package:first_app/signin_page.dart';
-//import 'package:first_app/google1.dart';
+//import 'package:first_app/signin_page.dart';
+import 'package:first_app/google1.dart';
 //import 'package:first_app/signin_page.dart';
 //import 'package:first_app/payment.dart';
 //import 'package:first_app/new.dart';
@@ -24,7 +24,7 @@ import 'package:flutter/material.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
-
+  await Firebase.initializeApp();
   runApp(MyApp());
   await Firebase.initializeApp(
      options: DefaultFirebaseOptions.currentPlatform,
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-    home:Page3()
+    home:Google1()
     );
   }
 }
