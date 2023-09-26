@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:first_app/choose_doctor.dart';
 import 'package:first_app/ear_specialist.dart';
-import 'package:first_app/google1.dart';
+import 'package:first_app/signin_page.dart';
 //import 'package:first_app/eye_specialist.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -54,10 +54,6 @@ class _Page4State extends State<Page4> {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signOut();
     if (googleUser != null) {
       await FirebaseAuth.instance.signOut();
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => Google1()), 
-      );
     }
   }
 
@@ -135,7 +131,11 @@ class _Page4State extends State<Page4> {
         leading: Icon(Icons.logout),
         title: Text('logout'),
          onTap: () {
-    signOut(context); // Call the signOut function when the Logout ListTile is tapped
+    signOut(context);
+     Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Page3()),
+              ); // Call the signOut function when the Logout ListTile is tapped
   },
          ),
         ],),

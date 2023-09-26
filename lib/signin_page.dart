@@ -1,13 +1,11 @@
 import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
 import 'package:first_app/Specialist.dart';
-//import 'package:firebase_core/firebase_core.dart';
+import 'package:first_app/forgotpassword.dart';
 import 'package:first_app/signup_page.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
 
 class Page3 extends StatefulWidget {
   @override
@@ -17,38 +15,82 @@ class Page3 extends StatefulWidget {
 class _Page3State extends State<Page3> {
   TextEditingController emailController = TextEditingController();
   TextEditingController pwdController = TextEditingController();
-   bool isLoggedIn = false;
-  late String name;
+  String emailError = "";
+  String passwordError = "";
+  
+  
+ 
+   void signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-  void login() async {
-    String email = emailController.text.trim();
-    String password = pwdController.text.trim();
-    if (email == "" || password == "") {
-      log("Please fill all the details");
-    } else {
-      try{   
-      UserCredential userCredential = 
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: email, password: password);
-      if(userCredential.user !=null){
-        Navigator.popUntil(context, (route) =>route.isFirst);
-         Navigator.push(
-         context,
-         MaterialPageRoute(builder: (context) => Page4()),
-         );
-      }
-      }on FirebaseAuthException catch(ex){
+      if (googleUser != null) {
+        final GoogleSignInAuthentication googleAuth =
+            await googleUser.authentication;
+        final AuthCredential credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
 
-        log(ex.code.toString());
+        final UserCredential userCredential =
+            await FirebaseAuth.instance.signInWithCredential(credential);
+
+        if (userCredential.user != null) {
+          Navigator.popUntil(context, (route) => route.isFirst);
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Page4()),
+          );
+        }
       }
+    } catch (e) {
+      log(e.toString());
     }
-
-
-   
-
-
-
   }
+ 
+
+void login() async {
+  String email = emailController.text.trim();
+  String password = pwdController.text.trim();
+  setState(() {
+    emailError = "";
+    passwordError = "";
+  });
+
+  if (email.isEmpty || password.isEmpty) {
+    setState(() {
+      if (email.isEmpty) emailError = "Email is required.";
+      if (password.isEmpty) passwordError = "Password is required.";
+    });
+  } else {
+  try {
+  UserCredential userCredential = await FirebaseAuth.instance
+      .signInWithEmailAndPassword(email: email, password: password);
+  if (userCredential.user != null) {
+    Navigator.popUntil(context, (route) => route.isFirst);
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Page4()),
+    );
+  }
+} on FirebaseAuthException catch (ex) {
+  log(ex.code.toString());
+  setState(() {
+    if (ex.code == 'user-not-found') {
+      emailError = "No user found with this email.";
+    } else if (ex.code == 'wrong-password') {
+      passwordError = "Incorrect password.";
+    } else if (ex.code == 'invalid-email') {
+      emailError = "Invalid email address.";
+    } else {
+          setState(() {
+           emailError = "An error occurred while signing in.";
+           });
+        }
+      });
+    }
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -72,19 +114,39 @@ class _Page3State extends State<Page3> {
             SizedBox(height: 20.0),
             Image.asset('assets/mky1.png'),
             SizedBox(height: 20.0),
+
+            
+
             Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  emailTextField(),
-                  SizedBox(height: 16.0),
-                  passwordTextField(),
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                emailTextField(),
+                SizedBox(height: 8.0),
+                if (emailError.isNotEmpty)
+                  Text(
+                    emailError,
+                    style: TextStyle(color: Colors.red),
+                  ),
+                SizedBox(height: 16.0),
+                passwordTextField(),
+                SizedBox(height: 8.0),
+                if (passwordError.isNotEmpty)
+                  Text(
+                    passwordError,
+                    style: TextStyle(color: Colors.red),
+                  ),
                   SizedBox(height: 24.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ForgotPasswordPage()),
+    );
+                        },
                         child: Text(
                           'Forgot Password?',
                           style: TextStyle(
@@ -95,10 +157,10 @@ class _Page3State extends State<Page3> {
                       ),
                       TextButton(
                         onPressed: () {
-                            Navigator.push(
-                             context,
+                          Navigator.push(
+                            context,
                             MaterialPageRoute(builder: (context) => Page5()),
-                             );
+                          );
                         },
                         child: Text(
                           'Create Account?',
@@ -112,15 +174,18 @@ class _Page3State extends State<Page3> {
                   ),
                   SizedBox(height: 10.0),
                   ElevatedButton(
-          onPressed:() {
-            login();
-          },
-         child: Text('Sign In',style: TextStyle(  color:  Colors.white, fontSize: 20.0,)),
-        style: ElevatedButton.styleFrom(
-          backgroundColor:  Color(0xFF14BBEF),
-        ),
-        ),
-          Row(
+                    onPressed: () {
+                      login();
+                    },
+                    child: Text(
+                      'Sign In',
+                      style: TextStyle(color: Colors.white, fontSize: 20.0),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFF14BBEF),
+                    ),
+                  ),
+                   Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(
@@ -143,21 +208,29 @@ class _Page3State extends State<Page3> {
                 ),
               ),
             ],
-          ),
-           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-             children: [
-              GestureDetector(
-                //onTap: _facebookSignIn, // Attach the _facebookSignIn function
-                child: Image.asset('assets/google.png', height: 40.0), // Adjust the height as needed
-              ),
-              SizedBox(width: 16.0), // Add spacing between logos
-              GestureDetector(
-                //onTap: _googleSignIn, // Attach the _googleSignIn function
-                child: Image.asset('assets/Facebook.png', height: 40.0), // Adjust the height as needed
-              ),
-            ],
-          ),
+          ), 
+          
+                  SizedBox(height: 16.0),
+                 ElevatedButton(
+  onPressed: () {
+    signInWithGoogle();
+  },
+  style: ElevatedButton.styleFrom(
+    backgroundColor: Colors.transparent, 
+    elevation: 0, 
+  ),
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Image.asset('assets/google.png', height: 40.0),
+      SizedBox(width: 8.0), 
+      Text(
+        'Sign In with Google',
+        style: TextStyle(color: Colors.white, fontSize: 20.0),
+      ),
+    ],
+  ),
+)
                 ],
               ),
             ),
@@ -178,7 +251,7 @@ class _Page3State extends State<Page3> {
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.orange,
+            color: Colors.teal,
             width: 2,
           ),
         ),
@@ -195,6 +268,7 @@ class _Page3State extends State<Page3> {
   Widget passwordTextField() {
     return TextFormField(
       controller: pwdController,
+      obscureText: true,
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderSide: BorderSide(
@@ -203,12 +277,12 @@ class _Page3State extends State<Page3> {
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.orange,
+            color: Colors.teal,
             width: 2,
           ),
         ),
         prefixIcon: Icon(
-          Icons.person,
+          Icons.remove_red_eye,
           color: Colors.green,
         ),
         labelText: "Password",
@@ -216,5 +290,4 @@ class _Page3State extends State<Page3> {
       ),
     );
   }
-  
 }

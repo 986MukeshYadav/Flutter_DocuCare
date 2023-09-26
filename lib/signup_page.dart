@@ -1,3 +1,4 @@
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -369,6 +370,7 @@ final ImagePicker _picker = ImagePicker();
    Widget passwordTextField(){
         return TextFormField(
           controller: pwdController,
+           obscureText: true,
           decoration:InputDecoration(
             border: OutlineInputBorder(
               borderSide: BorderSide(
@@ -395,6 +397,7 @@ final ImagePicker _picker = ImagePicker();
    Widget confirmpasswordTextField(){
         return TextFormField(
           controller: cpwdController,
+           obscureText: true,
           decoration:InputDecoration(
             border: OutlineInputBorder(
               borderSide: BorderSide(

@@ -43,12 +43,12 @@ dependencies:
   flutter_stripe: ^9.4.0
   google_sign_in: ^6.1.5
   firebase_ui_oauth_google: ^1.2.11
+  image_picker: ^1.0.4
   
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  image_picker: ^1.0.2
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

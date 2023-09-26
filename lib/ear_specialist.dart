@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:first_app/UserDetail.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -11,6 +12,12 @@ class EarSpecialistPage extends StatefulWidget {
 class _EarSpecialistPageState extends State<EarSpecialistPage> {
 
 List<dynamic> users=[];
+@override
+  void initState() {
+    super.initState();
+    fetchUsers(); // Fetch data when the screen is first opened
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,21 +25,25 @@ List<dynamic> users=[];
         title: Text('Eye Specialist Detail'),
       ),
       body: ListView.builder(
-        itemCount: users.length,
-        itemBuilder: (context,index){
-          final user = users[index];
-           final name=user['name']['first'];
-          final email=user['email'];
-           final imageUrl=user['picture']['thumbnail'];
-        return ListTile(
-          leading: ClipRRect(
+  itemCount: users.length,
+  itemBuilder: (context, index) {
+    final user = users[index];
+    final name = "Dr. " + user['name']['first'];
+    final email = user['email'];
+    final imageUrl = user['picture']['thumbnail'];
+    return GestureDetector(
+      onTap: () {
+        _navigateToUserDetail(user);
+      },
+      child: ListTile(
+        leading: ClipRRect(
             borderRadius: BorderRadius.circular(100),
-          child: Image.network(imageUrl)),
-          title: Text(name.toString()),
-          subtitle: Text(email),
+            child: Image.network(imageUrl)),
+        title: Text(name.toString()),
+        subtitle: Text(email),
+      ),
         );
       }),
-      //floatingActionButton: FloatingActionButton(onPressed: fetchUsers,),
       
     );
   }
@@ -48,4 +59,12 @@ List<dynamic> users=[];
     });
    
   }
+  void _navigateToUserDetail(Map<String, dynamic> user) {
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (context) => UserDetailPage(user),
+    ),
+  );
+}
+
 }
