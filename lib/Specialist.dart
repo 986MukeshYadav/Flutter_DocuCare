@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:first_app/choose_doctor.dart';
+import 'package:first_app/drawer.dart';
 import 'package:first_app/ear_specialist.dart';
 import 'package:first_app/signin_page.dart';
 //import 'package:first_app/eye_specialist.dart';
@@ -57,15 +57,11 @@ class _Page4State extends State<Page4> {
     }
   }
 
-
-
-
-
  void SpecialDetails(String specialistName) {
   switch (specialistName) {
     case 'Eye Specialist':
       Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => ChooseDoctor(),
+        builder: (context) => EarSpecialistPage(),
       ));
       break;
     case 'Ear Specialist':
@@ -83,63 +79,7 @@ class _Page4State extends State<Page4> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-        UserAccountsDrawerHeader(
-        accountName:Text("Pawan Kumar Sah") , 
-        accountEmail: Text("psah770@rku.ac.in"),
-        currentAccountPicture: CircleAvatar(
-        child: ClipOval( child:Image.asset('assets/doc1.png')),
-        ),
-        decoration: BoxDecoration(
-          color: Colors.blue,
-         image: DecorationImage(
-          image: NetworkImage('https://images.unsplash.com/photo-1497384401032-2182d2687715?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80'),
-         fit:BoxFit.cover)
-
-        )
-        
-        ),
-        ListTile(
-        leading: Icon(Icons.favorite),
-        title: Text('Favourite'),
-        onTap: ()=>null,
-         ),
-
-         ListTile(
-        leading: Icon(Icons.share),
-        title: Text('Share'),
-        onTap: ()=>null,
-         ),
-
-        ListTile(
-        leading: Icon(Icons.reviews),
-        title: Text('Rate the App '),
-        onTap: ()=>null,
-         ),
-
-          ListTile(
-        leading: Icon(Icons.feedback),
-        title: Text('Feedback '),
-        onTap: ()=>null,
-         ),
-
-         Divider(),
-         ListTile(
-        leading: Icon(Icons.logout),
-        title: Text('logout'),
-         onTap: () {
-    signOut(context);
-     Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Page3()),
-              ); // Call the signOut function when the Logout ListTile is tapped
-  },
-         ),
-        ],),
-      ),
+      endDrawer:CustomDrawer(),
       appBar: AppBar(
         title: Text(
           'Specialist',
@@ -223,4 +163,6 @@ class _Page4State extends State<Page4> {
       ),
     );
   }
+
+ 
 }

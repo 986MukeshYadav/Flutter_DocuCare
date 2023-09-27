@@ -1,4 +1,5 @@
 import 'package:first_app/appointment.dart';
+import 'package:first_app/drawer.dart';
 import 'package:flutter/material.dart';
 
 class UserDetailPage extends StatelessWidget {
@@ -18,6 +19,7 @@ class UserDetailPage extends StatelessWidget {
     final experience = "Experience: 5 years"; // You can modify this as needed
 
     return Scaffold(
+      endDrawer: CustomDrawer(),
       appBar: AppBar(
         title: Center(child: Text('Doctor List')),
       ),

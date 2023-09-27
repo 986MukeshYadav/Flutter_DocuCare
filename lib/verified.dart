@@ -32,6 +32,7 @@
 //   }
 // }
 
+import 'package:first_app/drawer.dart';
 import 'package:first_app/feedback.dart';
 import 'package:flutter/material.dart';
 
@@ -41,6 +42,7 @@ class Verified extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      endDrawer: CustomDrawer(),
       appBar: AppBar(
         title: Text(
           'Approved',

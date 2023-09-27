@@ -2,6 +2,7 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:first_app/drawer.dart';
 import 'package:first_app/payment.dart';
 import 'package:flutter/material.dart';
 
@@ -33,12 +34,12 @@ class _AppointmentState extends State<Appointment> {
     descriptionController.clear();
 
 
-    if(Name==""|| Disease==""|| Location==""|| Date=="" || Description==""){
+if(Name==""|| Disease==""|| Location==""|| Date=="" || Description==""){
      Map<String,dynamic> userData={
       "Name":Name,
       "Disease":Disease,
       "Location":Location,
-      "Date":Date,
+      "Date":DateTime.timestamp(),
       "Description":Description
      };
       FirebaseFirestore.instance.collection("User").add(userData);
@@ -51,9 +52,12 @@ class _AppointmentState extends State<Appointment> {
 
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      endDrawer: CustomDrawer(),
       appBar: AppBar(
         title: Center(child: Text("Appointment")),
       ),

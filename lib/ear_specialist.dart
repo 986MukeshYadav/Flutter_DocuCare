@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:first_app/UserDetail.dart';
+import 'package:first_app/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -21,6 +22,7 @@ List<dynamic> users=[];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       endDrawer: CustomDrawer(),
       appBar: AppBar(
         title: Text('Eye Specialist Detail'),
       ),

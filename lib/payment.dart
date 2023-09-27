@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:first_app/drawer.dart';
 import 'package:first_app/verified.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer';
@@ -50,6 +51,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      endDrawer: CustomDrawer(),
       appBar: AppBar(
         title: Text('Payment'),
         centerTitle: true,
@@ -219,7 +221,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     if(Credit==""|| Expiry==""|| CVV==""){
      Map<String,dynamic> userData={
       "Credit":Credit,
-      "Expiry":Expiry,
+      "Expiry":DateTime.timestamp(),
       "CVV":CVV,
      };
       FirebaseFirestore.instance.collection("Payment").add(userData);

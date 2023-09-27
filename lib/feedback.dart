@@ -1,4 +1,5 @@
 import 'package:first_app/Specialist.dart';
+import 'package:first_app/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -34,6 +35,7 @@ class _FeedBackState extends State<FeedBack> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       endDrawer: CustomDrawer(),
       appBar: AppBar(
         title: Text('Give Feedback'),
       ),
