@@ -14,9 +14,9 @@ class UserDetailPage extends StatelessWidget {
     final imageUrl = user['picture']['thumbnail'];
     final country = user['location']['country'];
     final address = user['location']['street']['name'];
-    final fees = "Consultation Fees: \$50"; // You can modify this as needed
+    final fees = "Consultation Fees: \$50"; 
     final contactNumber = user['phone'];
-    final experience = "Experience: 5 years"; // You can modify this as needed
+    final experience = "Experience: 5 years"; 
 
     return Scaffold(
       endDrawer: CustomDrawer(),
