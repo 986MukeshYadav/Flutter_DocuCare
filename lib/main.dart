@@ -1,12 +1,15 @@
 //import 'package:first_app/ear_specialist.dart';
 //import 'package:first_app/welcome.dart';
-import 'package:first_app/Homepage.dart';
+//import 'package:first_app/Homepage.dart';
 //import 'package:first_app/page5.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:first_app/appointment.dart';
+//import 'package:first_app/Specialist.dart';
 //import 'package:first_app/Specialist.dart';
 //import 'package:first_app/feedback.dart';
 //import 'package:first_app/appointment.dart';
 import 'package:first_app/firebase_options.dart';
+import 'package:first_app/new.dart';
 //import 'package:first_app/new.dart';
 //import 'package:first_app/signin_page.dart';
 //import 'package:first_app/signin_page.dart';
@@ -32,7 +35,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-    home:HomePage()
+    home:Appointment()
     );
   }
 }

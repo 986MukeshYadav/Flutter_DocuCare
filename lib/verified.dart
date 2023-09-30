@@ -37,7 +37,9 @@ import 'package:first_app/feedback.dart';
 import 'package:flutter/material.dart';
 
 class Verified extends StatelessWidget {
-  const  Verified({Key? key}) : super(key: key);
+  final Map<String, dynamic> userData;
+
+  Verified({required this.userData});
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +82,53 @@ class Verified extends StatelessWidget {
          Text('Thanks For Visiting',
          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
           SizedBox(
+                    height: 50,
+                  ),
+                   Center(
+        child: Column(
+  crossAxisAlignment: CrossAxisAlignment.start,
+  
+  children: [
+    Center(child: Text("Your Details :",style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),)),
+     SizedBox(height: 20, ),
+    Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      
+      children: [
+        
+        Text(
+          "Name: ",
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        Text("${userData["Name"]}", style: TextStyle(fontSize: 20)),
+        
+      ],
+    ),
+      Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Text("Disease: ", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+        Text("${userData["Disease"]}", style: TextStyle(fontSize: 20)),
+      ],
+    ),
+    Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Text("Location: ", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+        Text("${userData["Location"]}", style: TextStyle(fontSize: 20)),
+      ],
+    ),
+    Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Text("Date: ", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+        Text("${userData["Date"]}", style: TextStyle(fontSize: 20)),
+      ],
+    ),
+  ],
+),
+      ),
+       SizedBox(
                     height: 50,
                   ),
        ElevatedButton(
