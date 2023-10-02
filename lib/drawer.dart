@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:first_app/feedback.dart';
+import 'package:first_app/payment.dart';
 import 'package:first_app/signin_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -26,18 +27,23 @@ class CustomDrawer extends StatelessWidget {
                 )),
           ),
           ListTile(
-            leading: Icon(Icons.person),
-            title: Text('Profile'),
+            leading: Icon(Icons.favorite),
+            title: Text('Your Favorite'),
             onTap: () => null,
           ),
           ListTile(
-            leading: Icon(Icons.share),
-            title: Text('Share'),
-            onTap: () => null,
+            leading: Icon(Icons.payment),
+            title: Text('Payment'),
+            onTap: () => _navigateToPaymentScreen(context),
           ),
           ListTile(
             leading: Icon(Icons.reviews),
             title: Text('Rate the App '),
+            onTap: () => _navigateToFeedbackPage(context),
+          ),
+           ListTile(
+            leading: Icon(Icons.settings),
+            title: Text('Settings'),
             onTap: () => _navigateToFeedbackPage(context),
           ),
           Divider(),
@@ -71,3 +77,11 @@ class CustomDrawer extends StatelessWidget {
     );
   }
 }
+  void _navigateToPaymentScreen(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => PaymentScreen(),
+      ),
+    );
+  }
+  

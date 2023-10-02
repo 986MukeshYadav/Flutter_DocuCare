@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:first_app/verified.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:first_app/drawer.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -68,6 +69,7 @@ class _AppointmentState extends State<Appointment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        endDrawer: CustomDrawer(),
       appBar: AppBar(
         title: Center(child: Text("Appointment")),
       ),

@@ -1,3 +1,4 @@
+
 import 'package:first_app/appointment.dart';
 import 'package:first_app/drawer.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,7 @@ class UserDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final name = "Dr. " + user['name']['first'];
+    final name =  user['name']['first'];
     final email = user['email'];
     final imageUrl = user['picture']['thumbnail'];
     final country = user['location']['country'];

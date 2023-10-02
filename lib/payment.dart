@@ -1,29 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:first_app/drawer.dart';
-import 'package:first_app/verified.dart';
+import 'package:first_app/feedback.dart';
 import 'package:flutter/material.dart';
-import 'dart:developer';
+
 
 class PaymentScreen extends StatefulWidget {
   PaymentScreen({Key? key}) : super(key: key);
-   
-
 
   @override
   _PaymentScreenState createState() => _PaymentScreenState();
 }
- TextEditingController cardController = TextEditingController();
-TextEditingController expiryController = TextEditingController();
-TextEditingController cvvController = TextEditingController();
-
 
 class _PaymentScreenState extends State<PaymentScreen> {
   bool showTextFields = false;
+  TextEditingController cardController = TextEditingController();
   TextEditingController expiryDateController = TextEditingController();
+  TextEditingController cvvController = TextEditingController();
   DateTime? selectedExpiryDate;
- 
-
-
 
   Future<void> _selectExpiryDate(BuildContext context) async {
     final DateTime picked = (await showDatePicker(
@@ -33,7 +26,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
       lastDate: DateTime(DateTime.now().year + 10),
     ))!;
 
-    if (picked !=null && picked != selectedExpiryDate) {
+    if (picked != null && picked != selectedExpiryDate) {
       setState(() {
         selectedExpiryDate = picked;
         expiryDateController.text =
@@ -42,16 +35,42 @@ class _PaymentScreenState extends State<PaymentScreen> {
     }
   }
 
+  void savePayment() {
+  String credit = cardController.text.trim();
+  String expiry = expiryDateController.text.trim();
+  String cvv = cvvController.text.trim();
+
+  cardController.clear();
+  expiryDateController.clear();
+  cvvController.clear();
+
+  if (credit.isNotEmpty && expiry.isNotEmpty && cvv.isNotEmpty) {
+    Map<String, dynamic> userData = {
+      "Credit": credit,
+      "Expiry": selectedExpiryDate != null
+          ? Timestamp.fromMillisecondsSinceEpoch(selectedExpiryDate!.millisecondsSinceEpoch)
+          : null,
+      "CVV": cvv,
+    };
+    FirebaseFirestore.instance.collection("Payment").add(userData);
+    print("Payment Received Successful");
+  } else {
+    print("Please fill all the fields");
+  }
+}
+
   @override
   void dispose() {
+    cardController.dispose();
     expiryDateController.dispose();
+    cvvController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      endDrawer: CustomDrawer(),
+      endDrawer:CustomDrawer(),
       appBar: AppBar(
         title: Text('Payment'),
         centerTitle: true,
@@ -106,8 +125,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(Icons.credit_card), 
-                                SizedBox(width: 8), 
+                                Icon(Icons.credit_card),
+                                SizedBox(width: 8),
                                 Text(
                                   'Credit Card',
                                   style: TextStyle(fontSize: 20.0),
@@ -127,7 +146,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             Column(
                               children: [
                                 TextFormField(
-                                 controller: cardController,
+                                  controller: cardController,
                                   decoration: InputDecoration(
                                     labelText: 'Credit Card Number',
                                     border: OutlineInputBorder(
@@ -173,30 +192,36 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 ElevatedButton(
                   onPressed: () {
                     savePayment();
-                     showDialog(
-				context: context,
-				builder: (ctx) => AlertDialog(
-				content: const Text("Payment Received  Successful"),
-				actions: <Widget>[
-					TextButton(
-					onPressed: () {
-						 Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => Verified()),);
-					},
-					child: Container(
-						color: Color(0xFF14BBEF), 
-						padding: const EdgeInsets.all(14),
-						child: const Text("okay", style: TextStyle(fontSize: 15.0,color: Colors.white),),
-					),
-					),
-				],
-				),
-			);
+                    showDialog(
+                      context: context,
+                      builder: (ctx) => AlertDialog(
+                        content: const Text("Payment Received Successful"),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () {
+
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => FeedBack()),
+                              );
+                            },
+                            child: Container(
+                              color: Color(0xFF14BBEF),
+                              padding: const EdgeInsets.all(14),
+                              child: const Text(
+                                "OK",
+                                style: TextStyle(fontSize: 15.0, color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
                   },
                   child: Text('Pay', style: TextStyle(fontSize: 20.0),),
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xff14bbef)),
+                    backgroundColor: Color(0xff14bbef),
+                  ),
                 ),
               ],
             ),
@@ -204,32 +229,5 @@ class _PaymentScreenState extends State<PaymentScreen> {
         ],
       ),
     );
- 
-  }
-  void savePayment(){
-     String Credit = cardController.text.trim();
-    String Expiry = expiryController.text.trim();
-    String CVV= cvvController.text.trim();
-   
-
-    cardController.clear();
-    expiryController.clear();
-    cvvController.clear();
-    
-
-
-    if(Credit==""|| Expiry==""|| CVV==""){
-     Map<String,dynamic> userData={
-      "Credit":Credit,
-      "Expiry":DateTime.timestamp(),
-      "CVV":CVV,
-     };
-      FirebaseFirestore.instance.collection("Payment").add(userData);
-      log("User Created");
-
-    }
-    else{
-      log("Please fill all the fields");
-    }
   }
 }
