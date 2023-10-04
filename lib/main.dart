@@ -15,6 +15,7 @@ import 'package:first_app/firebase_options.dart';
 //import 'package:first_app/signin_page.dart';
 //import 'package:first_app/signin_page.dart';
 import 'package:first_app/payment.dart';
+import 'package:first_app/splash.dart';
 //import 'package:first_app/new.dart';
 //import 'package:first_app/verified.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-    home:PaymentScreen()
+    home:SplashScreen()
     );
   }
 }
