@@ -1,4 +1,4 @@
-import 'package:first_app/welcome.dart';
+import 'package:first_app/signin_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -39,7 +39,7 @@ class HomePage extends StatelessWidget {
           onPressed:() {
              Navigator.push(
          context,
-         MaterialPageRoute(builder: (context) => Page2()),
+         MaterialPageRoute(builder: (context) => Page3()),
          );
           },
          child: Text('Get Started',style: TextStyle(  color:  Colors.white, fontSize: 30.0,)),

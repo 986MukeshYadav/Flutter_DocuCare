@@ -1,39 +1,6 @@
-// import 'package:flutter/material.dart';
-
-// class Verified extends StatelessWidget {
-//   const Verified({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Center(child: Text("Notification")),
-//       ),
-//        body:SingleChildScrollView(
-//       child:
-//        Center(
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.center,
-//           children: [
-//             Image.asset('assets/verified.png'),
-//              SizedBox(height:5.0),
-//             Text(
-//               'Your Request Has Been Approved',
-//               style: TextStyle(
-//                 fontSize: 25.0,
-//                 fontWeight:FontWeight.bold,
-//               ),
-//             ),
-//           ]
-//        ),
-//        )
-//        )
-//     );
-//   }
-// }
-
 import 'package:first_app/drawer.dart';
 import 'package:first_app/feedback.dart';
+import 'package:first_app/payment.dart';
 import 'package:flutter/material.dart';
 
 class Verified extends StatelessWidget {
@@ -135,7 +102,7 @@ class Verified extends StatelessWidget {
           onPressed:() {
              Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => FeedBack()),
+              MaterialPageRoute(builder: (context) => PaymentScreen()),
               );
           },
           child:Text("Done",

@@ -22,9 +22,6 @@ class _Page5State extends State<Page5> {
 final ImagePicker _picker = ImagePicker();
 
   TextEditingController nameController = TextEditingController();
-  TextEditingController ageController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController addController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController pwdController = TextEditingController();
   TextEditingController cpwdController = TextEditingController();
@@ -32,15 +29,12 @@ final ImagePicker _picker = ImagePicker();
 
   void createFunction() async {
     String Name = nameController.text.trim();
-    String Age = ageController.text.trim();
-    String Phone = phoneController.text.trim();
-    String Address = addController.text.trim();
     String Email = emailController.text.trim();
     String Password = pwdController.text.trim();
     String ConformPassword = cpwdController.text.trim();
 
     
-    if (Name==""|| Age==""|| Phone==""|| Address==""|| Email == "" || Password == "" || ConformPassword=="") {
+    if (Name==""|| Email == "" || Password == "" || ConformPassword=="") {
       log("Please fill all the details");
     } 
     else if(Password != ConformPassword){
@@ -89,18 +83,6 @@ final ImagePicker _picker = ImagePicker();
                     height: 20,
                   ),
                   nameTextField(),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  ageTextField(),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  phoneTextField(),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  addressTextField(),
                   SizedBox(
                     height: 20,
                   ),
@@ -263,84 +245,6 @@ final ImagePicker _picker = ImagePicker();
         );
   }
 
-   Widget  ageTextField(){
-        return TextFormField(
-          controller: ageController,
-          decoration:InputDecoration(
-            border: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Colors.teal,
-              ),
-            ),
-            focusedBorder:OutlineInputBorder(
-              borderSide: BorderSide(
-                color:Colors.orange,
-                width: 2,
-              ),
-            ),
-            prefixIcon: Icon(
-              Icons.person,
-              color:Colors.green,
-            ),
-            labelText:  "Age",
-            helperText: "Age can't be empty",
-            hintText: "Age",
-          ),    
-        );
-  }
-
-   Widget  phoneTextField(){
-        return TextFormField(
-          controller: phoneController,
-          decoration:InputDecoration(
-            border: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Colors.teal,
-              ),
-            ),
-            focusedBorder:OutlineInputBorder(
-              borderSide: BorderSide(
-                color:Colors.orange,
-                width: 2,
-              ),
-            ),
-            prefixIcon: Icon(
-              Icons.person,
-              color:Colors.green,
-            ),
-            labelText:  "Phone no",
-            helperText: "Phone number can't be empty",
-            hintText: "Phone no",
-          ),    
-        );
-  }
-
- Widget  addressTextField(){
-        return TextFormField(
-          controller: addController,
-          decoration:InputDecoration(
-            border: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Colors.teal,
-              ),
-            ),
-            focusedBorder:OutlineInputBorder(
-              borderSide: BorderSide(
-                color:Colors.orange,
-                width: 2,
-              ),
-            ),
-            prefixIcon: Icon(
-              Icons.person,
-              color:Colors.green,
-            ),
-            labelText:  "Address",
-            helperText: "Address can't be empty",
-            hintText: "Address",
-          ),    
-        );
-  }
-
  Widget emailTextField(){
         return TextFormField(
           controller: emailController,
@@ -421,3 +325,11 @@ final ImagePicker _picker = ImagePicker();
         );
   }
 }
+
+
+
+
+
+
+
+

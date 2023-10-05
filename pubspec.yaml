@@ -46,6 +46,7 @@ dependencies:
   image_picker: ^1.0.4
   table_calendar: ^3.0.9
   shared_preferences: ^2.2.1
+  firebase_storage: ^11.2.8
   
 
 dev_dependencies:
