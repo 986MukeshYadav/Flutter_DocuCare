@@ -1,6 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:first_app/firebase_options.dart';
-import 'package:first_app/signup_page.dart';
 import 'package:first_app/splash.dart';
 import 'package:flutter/material.dart';
 

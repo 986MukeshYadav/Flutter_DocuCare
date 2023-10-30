@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:first_app/feedback.dart';
 import 'package:first_app/payment.dart';
+import 'package:first_app/profile.dart';
 import 'package:first_app/signin_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -13,8 +14,8 @@ class CustomDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text("Pawan Kumar Sah"),
-            accountEmail: Text("psah770@rku.ac.in"),
+            accountName: Text("Mukesh Kumar Yadav"),
+            accountEmail: Text("myadav986@rku.ac.in"),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(child: Image.asset('assets/doc1.png')),
             ),
@@ -27,9 +28,9 @@ class CustomDrawer extends StatelessWidget {
                 )),
           ),
           ListTile(
-            leading: Icon(Icons.favorite),
-            title: Text('Your Favorite'),
-            onTap: () => null,
+            leading: Icon(Icons.people),
+            title: Text('Profile'),
+            onTap: () => _navigateToUserProfilePage( context) ,
           ),
           ListTile(
             leading: Icon(Icons.payment),
@@ -84,4 +85,12 @@ class CustomDrawer extends StatelessWidget {
       ),
     );
   }
+    void _navigateToUserProfilePage(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => UserProfilePage(),
+      ),
+    );
+  }
+  
   
